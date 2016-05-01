@@ -1,0 +1,46 @@
+{
+  "name": "release-cli",
+  "version": "0.0.0",
+  "description": "Publish a new version of your app.",
+  "homepage": "https://github.com/sholladay/release-cli",
+  "main": "index.js",
+  "author": {
+    "name": "Seth Holladay",
+    "url": "http://seth-holladay.com",
+    "email": "me@seth-holladay.com"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sholladay/release-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sholladay/release-cli/issues",
+    "email": "me@seth-holladay.com"
+  },
+  "license": "MPL-2.0",
+  "bin": {
+    "release": "bin/release.js"
+  },
+  "files": [
+    "index.js",
+    "bin"
+  ],
+  "directories": {
+    "bin": "./bin"
+  },
+  "dependencies": {
+    "chalk": "1.1.3",
+    "meow": "3.7.0"
+  },
+  "keywords": [
+    "devops",
+    "deploy",
+    "release",
+    "process",
+    "automation",
+    "cli"
+  ]
+}
