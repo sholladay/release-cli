@@ -6,7 +6,7 @@
 
  - Don't repeat yourself.
  - One step closer to continuous delivery.
- - Reasons.
+ - Predictable, easy-to learn process.
 
 ## Install
 
@@ -24,14 +24,14 @@ $ release --help
 
   Example
     $ release patch
-    => 0.0.1
+    ⇑ 0.0.1
 ```
 
 Perform a release, incrementing the [version](http://semver.org/).
 
 ```
 $ release patch
-=> 0.0.1
+⇑ 0.0.1
 ```
 
 ## Contributing
