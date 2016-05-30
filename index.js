@@ -13,7 +13,7 @@ function run(command) {
                 return;
             }
 
-            resolve(stdout);
+            resolve(stdout.trimRight());
         });
     });
 }
