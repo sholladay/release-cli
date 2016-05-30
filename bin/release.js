@@ -3,10 +3,9 @@
 'use strict';
 
 const
-    meow = require('meow'),
     release = require('../'),
     chalk = require('chalk'),
-    cli = meow(`
+    cli = require('meow')(`
         Usage
           $ release [major|minor|patch]
 
@@ -21,11 +20,11 @@ if (!type) {
     process.exit(1);
 }
 
-if (!/^(?:major|minor|patch)/.test(type)) {
+if (!['major', 'minor', 'patch'].includes(type)) {
     console.error('Invalid release type. Must be one of major|minor|patch.');
     process.exit(1);
 }
 
-release[type](cli.flags).then((version) => {
+release[type]().then((version) => {
     console.log('⇑', chalk.bold(version));
 });
