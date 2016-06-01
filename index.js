@@ -1,6 +1,8 @@
 'use strict';
 
-const exec = require('child_process').exec;
+const
+    branchName = require('branch-name'),
+    exec = require('child_process').exec;
 
 function run(command) {
 
@@ -30,7 +32,15 @@ function release(type) {
 
     let newVersion;
 
-    return git('status --porcelain').then((stdout) => {
+    return branchName.get().then((currentBranch) => {
+            if (currentBranch !== 'master') {
+                throw new Error('Must be on \"master\" branch to release.');
+            }
+        })
+        .then(() => {
+            return git('status --porcelain');
+        })
+        .then((stdout) => {
             if (stdout !== '') {
                 throw new Error('Dirty working tree. Commit or stash changes first.');
             }
@@ -39,7 +49,7 @@ function release(type) {
             return git('fetch');
         })
         .then(() => {
-            return git('rev-list --count --left-only @{u}...HEAD')
+            return git('rev-list --count --left-only @{u}...HEAD');
         })
         .then((stdout) => {
             if (stdout !== '0') {
