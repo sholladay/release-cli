@@ -2,7 +2,8 @@
 
 const
     branchName = require('branch-name'),
-    exec = require('child_process').exec;
+    del        = require('del'),
+    exec       = require('child_process').exec;
 
 function run(command) {
 
@@ -28,7 +29,9 @@ function git(command) {
     return run('git ' + command);
 }
 
-function release(type) {
+function release(api) {
+
+    const type = api.name;
 
     let newVersion;
 
@@ -56,12 +59,12 @@ function release(type) {
                 throw new Error('Remote history differs. Please pull changes.');
             }
         })
-        // .then(() => {
-        //     return del('node_modules');
-        // })
-        // .then(() => {
-        //     return npm('install');
-        // })
+        .then(() => {
+            return del('node_modules');
+        })
+        .then(() => {
+            return npm('install');
+        })
         // .then(() => {
         //     return npm('test');
         // })
@@ -69,8 +72,8 @@ function release(type) {
             return npm('version ' + type);
         })
         .then((stdout) => {
-            // TODO: It may be better to parse the semver string.
-            newVersion = stdout.slice(1).trimRight();
+            // Remove the leading 'v', to ensure valid semver.
+            newVersion = stdout.slice(1);
         })
         .then(() => {
             return git('push --follow-tags');
@@ -84,15 +87,15 @@ function release(type) {
 }
 
 function major() {
-    return release(major.name);
+    return release(major);
 }
 
 function minor() {
-    return release(minor.name);
+    return release(minor);
 }
 
 function patch() {
-    return release(patch.name);
+    return release(patch);
 }
 
 module.exports = {

@@ -15,6 +15,8 @@ const
     `),
     type = cli.input[0];
 
+require('update-notifier')({pkg: cli.pkg}).notify();
+
 if (!type) {
     console.error('Please provide a release type.');
     process.exit(1);
