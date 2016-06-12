@@ -7,11 +7,15 @@ const
     chalk = require('chalk'),
     cli = require('meow')(`
         Usage
-          $ release [major|minor|patch]
+          $ release [patch | minor | major]
 
         Example
           $ release patch
-          ⇑ ${chalk.bold('0.2.0')}
+          ⇑ ${chalk.bold('0.0.1')}
+          $ release minor
+          ⇑ ${chalk.bold('0.1.0')}
+          $ release major
+          ⇑ ${chalk.bold('1.0.0')}
     `),
     type = cli.input[0];
 

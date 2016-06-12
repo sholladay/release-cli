@@ -20,11 +20,15 @@ npm install release-cli --global
 $ release --help
 
   Usage
-    $ release <major|minor|patch>
+    $ release [patch | minor | major]
 
   Example
     $ release patch
     ⇑ 0.0.1
+    $ release minor
+    ⇑ 0.1.0
+    $ release major
+    ⇑ 1.0.0
 ```
 
 Perform a release, incrementing the [version](http://semver.org/).
