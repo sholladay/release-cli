@@ -82,15 +82,15 @@ const release = (api) => {
         });
 };
 
-const major = () => {
+const major = function major() {
     return release(major);
 };
 
-const minor = () => {
+const minor = function minor() {
     return release(minor);
 };
 
-const patch = () => {
+const patch = function patch() {
     return release(patch);
 };
 
