@@ -2,24 +2,24 @@
 
 'use strict';
 
-const
-    release = require('../'),
-    chalk = require('chalk'),
-    cli = require('meow')(`
-        Usage
-          $ release [patch | minor | major]
+const chalk = require('chalk');
+const cli = require('meow')(`
+    Usage
+      $ release [patch | minor | major]
 
-        Example
-          $ release patch
-          ⇑ ${chalk.bold('0.0.1')}
-          $ release minor
-          ⇑ ${chalk.bold('0.1.0')}
-          $ release major
-          ⇑ ${chalk.bold('1.0.0')}
-    `),
-    type = cli.input[0];
+    Example
+      $ release patch
+      ⇑ ${chalk.bold('0.0.1')}
+      $ release minor
+      ⇑ ${chalk.bold('0.1.0')}
+      $ release major
+      ⇑ ${chalk.bold('1.0.0')}
+`);
+const release = require('../');
 
-require('update-notifier')({pkg: cli.pkg}).notify();
+require('update-notifier')({ pkg : cli.pkg }).notify();
+
+const [type] = cli.input;
 
 if (!type) {
     console.error('Please provide a release type.');

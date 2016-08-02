@@ -1,16 +1,12 @@
 'use strict';
 
-const
-    branchName = require('branch-name'),
-    del        = require('del'),
-    exec       = require('child_process').exec;
+const { exec } = require('child_process');
+const branchName = require('branch-name');
+const del = require('del');
 
-function run(command) {
-
+const run = (command) => {
     return new Promise((resolve, reject) => {
-
         exec(command, (err, stdout) => {
-
             if (err) {
                 reject(err);
                 return;
@@ -19,25 +15,25 @@ function run(command) {
             resolve(stdout.trimRight());
         });
     });
-}
+};
 
-function npm(command) {
+const npm = (command) => {
     return run('npm ' + command);
-}
+};
 
-function git(command) {
+const git = (command) => {
     return run('git ' + command);
-}
+};
 
-function release(api) {
-
+const release = (api) => {
     const type = api.name;
 
     let newVersion;
 
-    return branchName.get().then((currentBranch) => {
+    return branchName.get()
+        .then((currentBranch) => {
             if (currentBranch !== 'master') {
-                throw new Error('Must be on \"master\" branch to release.');
+                throw new Error('Must be on `master` branch to release.');
             }
         })
         .then(() => {
@@ -84,19 +80,19 @@ function release(api) {
         .then(() => {
             return newVersion;
         });
-}
+};
 
-function major() {
+const major = () => {
     return release(major);
-}
+};
 
-function minor() {
+const minor = () => {
     return release(minor);
-}
+};
 
-function patch() {
+const patch = () => {
     return release(patch);
-}
+};
 
 module.exports = {
     major,
