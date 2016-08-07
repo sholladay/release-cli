@@ -1,4 +1,4 @@
-# release-cli
+# release-cli [![Build status for release-cli on Circle CI.](https://img.shields.io/circleci/project/sholladay/release-cli/master.svg "Circle Build Status")](https://circleci.com/gh/sholladay/release-cli "Release CLI Builds")
 
 > Publish a new version of your app.
 
@@ -10,9 +10,9 @@
 
 ## Install
 
-````sh
+```sh
 npm install release-cli --global
-````
+```
 
 ## Usage
 

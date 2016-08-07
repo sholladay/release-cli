@@ -20,6 +20,9 @@
     "url": "https://github.com/sholladay/release-cli/issues",
     "email": "me@seth-holladay.com"
   },
+  "engines": {
+    "node": ">=6"
+  },
   "license": "MPL-2.0",
   "bin": {
     "release": "bin/release.js"
