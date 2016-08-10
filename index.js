@@ -39,8 +39,8 @@ const release = (api) => {
         .then(() => {
             return git('status --porcelain');
         })
-        .then((stdout) => {
-            if (stdout !== '') {
+        .then((status) => {
+            if (status !== '') {
                 throw new Error('Dirty working tree. Commit or stash changes first.');
             }
         })
@@ -61,15 +61,15 @@ const release = (api) => {
         .then(() => {
             return npm('install');
         })
-        // .then(() => {
-        //     return npm('test');
-        // })
+        .then(() => {
+            return npm('test');
+        })
         .then(() => {
             return npm('version ' + type);
         })
         .then((stdout) => {
             // Remove the leading 'v', to ensure valid semver.
-            newVersion = stdout.slice(1);
+            newVersion = stdout.substring('v'.length);
         })
         .then(() => {
             return git('push --follow-tags');
