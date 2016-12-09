@@ -25,61 +25,37 @@ const git = (command) => {
     return run('git ' + command);
 };
 
-const release = (api) => {
+const release = async (api) => {
     const type = api.name;
 
-    let newVersion;
+    const currentBranch = await branchName.get();
+    if (currentBranch !== 'master') {
+        throw new Error('Must be on `master` branch to release.');
+    }
 
-    return branchName.get()
-        .then((currentBranch) => {
-            if (currentBranch !== 'master') {
-                throw new Error('Must be on `master` branch to release.');
-            }
-        })
-        .then(() => {
-            return git('status --porcelain');
-        })
-        .then((status) => {
-            if (status !== '') {
-                throw new Error('Dirty working tree. Commit or stash changes first.');
-            }
-        })
-        .then(() => {
-            return git('fetch');
-        })
-        .then(() => {
-            return git('rev-list --count --left-only @{u}...HEAD');
-        })
-        .then((stdout) => {
-            if (stdout !== '0') {
-                throw new Error('Remote history differs. Please pull changes.');
-            }
-        })
-        .then(() => {
-            return del('node_modules');
-        })
-        .then(() => {
-            return npm('install');
-        })
-        .then(() => {
-            return npm('test');
-        })
-        .then(() => {
-            return npm('version ' + type);
-        })
-        .then((stdout) => {
-            // Remove the leading 'v', to ensure valid semver.
-            newVersion = stdout.substring('v'.length);
-        })
-        .then(() => {
-            return git('push --follow-tags');
-        })
-        .then(() => {
-            return npm('publish');
-        })
-        .then(() => {
-            return newVersion;
-        });
+    const status = await git('status --porcelain');
+    if (status !== '') {
+        throw new Error('Dirty working tree. Commit or stash changes first.');
+    }
+
+    await git('fetch');
+
+    const commits = await git('rev-list --count --left-only @{u}...HEAD');
+    if (commits !== '0') {
+        throw new Error('Remote history differs. Please pull changes.');
+    }
+    await del('node_modules');
+    await npm('install');
+    await npm('test');
+
+    const stdout = await npm('version ' + type);
+    // Remove the leading 'v', to ensure valid semver.
+    const newVersion = stdout.substring('v'.length);
+
+    await git('push --follow-tags');
+    await npm('publish');
+
+    return newVersion;
 };
 
 const major = function major() {
