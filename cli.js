@@ -2,20 +2,20 @@
 
 'use strict';
 
-const chalk = require('chalk');
+const { bold } = require('chalk');
 const cli = require('meow')(`
     Usage
       $ release [patch | minor | major]
 
     Example
       $ release patch
-      ⇑ ${chalk.bold('0.0.1')}
+      ⇑ ${bold('0.0.1')}
       $ release minor
-      ⇑ ${chalk.bold('0.1.0')}
+      ⇑ ${bold('0.1.0')}
       $ release major
-      ⇑ ${chalk.bold('1.0.0')}
+      ⇑ ${bold('1.0.0')}
 `);
-const release = require('../');
+const release = require('.');
 
 require('update-notifier')({ pkg : cli.pkg }).notify();
 
@@ -32,5 +32,5 @@ if (!['major', 'minor', 'patch'].includes(type)) {
 }
 
 release[type]().then((version) => {
-    console.log('⇑', chalk.bold(version));
+    console.log('⇑', bold(version));
 });

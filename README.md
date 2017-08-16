@@ -38,6 +38,11 @@ $ release patch
 ⇑ 0.0.1
 ```
 
+## Related
+
+ - [delivr](https://github.com/sholladay/delivr) - Build your code and ship it to S3
+ - [build-dir](https://github.com/sholladay/build-dir) - Get a place to put your build
+
 ## Contributing
 
 See our [contributing guidelines](https://github.com/sholladay/release-cli/blob/master/CONTRIBUTING.md "The guidelines for participating in this project.") for more details.
@@ -50,6 +55,6 @@ See our [contributing guidelines](https://github.com/sholladay/release-cli/blob/
 
 ## License
 
-[MPL-2.0](https://github.com/sholladay/release-cli/blob/master/LICENSE "The license for release-cli.") © [Seth Holladay](http://seth-holladay.com "Author of release-cli.")
+[MPL-2.0](https://github.com/sholladay/release-cli/blob/master/LICENSE "The license for release-cli.") © [Seth Holladay](https://seth-holladay.com "Author of release-cli.")
 
 Go make something, dang it.
