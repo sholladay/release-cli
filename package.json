@@ -34,8 +34,9 @@
   "dependencies": {
     "branch-name": "^0.1.4",
     "chalk": "^2.1.0",
-    "del": "^3.0.0",
+    "fresh-cli": "^1.1.1",
     "meow": "^3.7.0",
+    "ora": "^1.3.0",
     "update-notifier": "^2.2.0"
   },
   "devDependencies": {

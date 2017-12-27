@@ -3,14 +3,13 @@
 const util = require('util');
 const childProcess = require('child_process');
 const branchName = require('branch-name');
-const del = require('del');
+const fresh = require('fresh-cli');
 
 const exec = util.promisify(childProcess.exec);
 
-const run = (command, arg) => {
-    return exec(command + ' ' + arg).then(({ stdout }) => {
-        return stdout.trimRight();
-    });
+const run = async (command, arg) => {
+    const { stdout } = await exec(command + ' ' + arg);
+    return stdout.trimRight();
 };
 
 const npm = run.bind(null, 'npm');
@@ -33,8 +32,7 @@ const release = async (type) => {
     if (commits !== '0') {
         throw new Error('Remote history differs. Please pull changes.');
     }
-    await del('node_modules');
-    await npm('install');
+    await fresh();
     await npm('test');
 
     const stdout = await npm('version ' + type);
